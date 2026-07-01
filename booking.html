@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book an Appointment — Sterling Smile Dental Care</title>
+<meta name="description" content="Book your visit at Sterling Smile Dental Care in Kota. Pick a treatment, a doctor and a time that works for you — we'll confirm within one business day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ---------- Booking page (self-contained) ---------- */
+  :root{
+    --coral:#FFB199;
+    --cream:#FAF8F4;
+  }
+
+  .booking-hero{
+    background:#123B36;
+    color:#fff;
+    padding:64px 0 46px;
+    position:relative;
+    overflow:hidden;
+  }
+  .booking-hero .container{
+    position:relative;
+    z-index:1;
+  }
+  .booking-hero .eyebrow{color:var(--coral);}
+  .booking-hero h1{
+    font-family:'Fraunces',serif;
+    font-size:clamp(2rem,4vw,2.8rem);
+    margin:10px 0 12px;
+  }
+  .booking-hero p{
+    max-width:560px;
+    color:rgba(255,255,255,.82);
+    font-size:1.02rem;
+  }
+  .booking-crumb{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    font-size:.85rem;
+    color:rgba(255,255,255,.6);
+    margin-bottom:18px;
+  }
+  .booking-crumb a{color:rgba(255,255,255,.85);text-decoration:none;}
+  .booking-crumb a:hover{text-decoration:underline;}
+
+  .booking-wrap{
+    padding:56px 0 90px;
+    background:var(--cream);
+  }
+  .booking-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:34px;
+    align-items:start;
+  }
+
+  /* ---- form card ---- */
+  .form-card{
+    background:#fff;
+    border-radius:20px;
+    padding:38px 36px 32px;
+    box-shadow:0 18px 40px -24px rgba(18,59,54,.25);
+    border:1px solid rgba(18,59,54,.06);
+  }
+  .form-card h2{
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    margin:0 0 4px;
+    color:#123B36;
+  }
+  .form-card>p{
+    color:#6b6f6d;
+    font-size:.93rem;
+    margin:0 0 26px;
+  }
+
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .field{
+    margin-bottom:18px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-size:.83rem;
+    font-weight:600;
+    color:#20342f;
+  }
+  .field label .opt{
+    font-weight:400;
+    color:#93968f;
+    font-size:.78rem;
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid #E4E1D8;
+    background:#FCFBF8;
+    color:#20342f;
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea{
+    resize:vertical;
+    min-height:90px;
+    font-family:'Inter',sans-serif;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    border-color:#123B36;
+    box-shadow:0 0 0 3px rgba(18,59,54,.12);
+  }
+  .field.error input,
+  .field.error select,
+  .field.error textarea{
+    border-color:#D1543E;
+    background:#FFF7F5;
+  }
+  .field .err-msg{
+    display:none;
+    font-size:.78rem;
+    color:#D1543E;
+  }
+  .field.error .err-msg{display:block;}
+
+  .radio-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .radio-pill{
+    position:relative;
+  }
+  .radio-pill input{
+    position:absolute;
+    opacity:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    margin:0;
+  }
+  .radio-pill span{
+    display:inline-block;
+    padding:9px 16px;
+    border-radius:999px;
+    border:1.5px solid #E4E1D8;
+    font-size:.85rem;
+    color:#20342f;
+    background:#FCFBF8;
+    transition:all .15s ease;
+  }
+  .radio-pill input:checked + span{
+    background:#123B36;
+    border-color:#123B36;
+    color:#fff;
+  }
+  .radio-pill input:focus-visible + span{
+    box-shadow:0 0 0 3px rgba(18,59,54,.25);
+  }
+
+  .form-submit{
+    width:100%;
+    margin-top:6px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#123B36;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .form-submit:hover{background:#0b2b27;}
+  .form-submit:active{transform:scale(.99);}
+  .form-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+  .form-note{
+    font-size:.78rem;
+    color:#93968f;
+    text-align:center;
+    margin-top:12px;
+  }
+
+  /* success state */
+  .success-box{
+    display:none;
+    text-align:center;
+    padding:50px 20px;
+  }
+  .success-box.show{display:block;}
+  .form-card.hidden-form{display:none;}
+  .success-check{
+    width:64px;height:64px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:#E3F1EC;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+    color:#123B36;
+  }
+  .success-box h2{
+    font-family:'Fraunces',serif;
+    color:#123B36;
+    margin:0 0 8px;
+  }
+  .success-box p{color:#6b6f6d;font-size:.95rem;}
+  .success-summary{
+    text-align:left;
+    max-width:380px;
+    margin:22px auto 0;
+    background:#FCFBF8;
+    border:1px solid #E4E1D8;
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:.87rem;
+  }
+  .success-summary div{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    border-bottom:1px dashed #E4E1D8;
+  }
+  .success-summary div:last-child{border-bottom:none;}
+  .success-summary span.k{color:#93968f;}
+  .success-summary span.v{color:#20342f;font-weight:600;text-align:right;}
+
+  /* ---- sidebar ---- */
+  .side-card{
+    background:#fff;
+    border-radius:18px;
+    padding:26px 26px;
+    margin-bottom:20px;
+    border:1px solid rgba(18,59,54,.06);
+    box-shadow:0 12px 30px -22px rgba(18,59,54,.2);
+  }
+  .side-card h3{
+    font-family:'Fraunces',serif;
+    font-size:1.08rem;
+    margin:0 0 12px;
+    color:#123B36;
+  }
+  .info-row{
+    display:flex;
+    gap:12px;
+    margin-bottom:14px;
+    font-size:.9rem;
+    color:#3c433f;
+  }
+  .info-row:last-child{margin-bottom:0;}
+  .info-row .ic{font-size:1.15rem;flex-shrink:0;}
+  .info-row strong{display:block;color:#123B36;font-size:.86rem;}
+
+  .steps{list-style:none;margin:0;padding:0;}
+  .steps li{
+    display:flex;
+    gap:12px;
+    font-size:.88rem;
+    color:#3c433f;
+    padding:9px 0;
+    border-bottom:1px dashed #E4E1D8;
+  }
+  .steps li:last-child{border-bottom:none;}
+  .steps .num{
+    flex-shrink:0;
+    width:24px;height:24px;
+    border-radius:50%;
+    background:#123B36;
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  .side-cta{
+    background:#123B36;
+    color:#fff;
+    text-align:center;
+  }
+  .side-cta h3{color:#fff;}
+  .side-cta p{color:rgba(255,255,255,.75);font-size:.87rem;margin:0 0 16px;}
+  .side-cta a{
+    display:inline-block;
+    background:var(--coral);
+    color:#123B36;
+    font-weight:700;
+    padding:11px 20px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:.9rem;
+  }
+
+  @media (max-width: 880px){
+    .booking-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .form-card{padding:28px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="index.html" class="logo"><span class="mark">SS</span> Sterling Smile</a>
+    <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="gallery.html">Before &amp; After</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <span class="nav-phone">&#128222; +91 98765 43210</span>
+      <a href="booking.html" class="btn btn-primary active">Book Visit</a>
+    </div>
+  </nav>
+</header>
+
+<!-- BOOKING HERO -->
+<section class="booking-hero">
+  <div class="container">
+    <div class="booking-crumb"><a href="index.html">Home</a> <span>/</span> <span>Book an Appointment</span></div>
+    <span class="eyebrow">Same-week slots usually available</span>
+    <h1>Let's find you a time.</h1>
+    <p>Fill in a few details below and our front desk will confirm your slot by phone or email within one business day — usually much sooner.</p>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking-wrap">
+  <div class="container">
+    <div class="booking-grid">
+
+      <!-- FORM -->
+      <div>
+        <form id="bookingForm" class="form-card" novalidate
+              action="https://formspree.io/f/your-form-id" method="POST">
+
+          <h2>Appointment details</h2>
+          <p>All fields marked required help us prep for your visit — the rest just help us serve you better.</p>
+
+          <div class="form-row">
+            <div class="field" data-field="fullName">
+              <label for="fullName">Full name</label>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Ananya Sharma" required>
+              <span class="err-msg">Please enter your full name.</span>
+            </div>
+            <div class="field" data-field="phone">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 98765 43210" required>
+              <span class="err-msg">Please enter a valid 10-digit phone number.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field" data-field="email">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="e.g. ananya@email.com" required>
+              <span class="err-msg">Please enter a valid email address.</span>
+            </div>
+            <div class="field" data-field="age">
+              <label for="age">Age <span class="opt">(optional)</span></label>
+              <input type="number" id="age" name="age" placeholder="e.g. 29" min="1" max="120">
+            </div>
+          </div>
+
+          <div class="field" data-field="visitType">
+            <label>Is this your first visit with us?</label>
+            <div class="radio-group">
+              <label class="radio-pill">
+                <input type="radio" name="visitType" value="New patient" checked>
+                <span>New patient</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="visitType" value="Returning patient">
+                <span>Returning patient</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field" data-field="service">
+              <label for="service">Treatment you're interested in</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a treatment</option>
+                <option>General check-up &amp; cleaning</option>
+                <option>Cosmetic dentistry / Veneers</option>
+                <option>Implants &amp; crowns</option>
+                <option>Braces &amp; clear aligners</option>
+                <option>Teeth whitening</option>
+                <option>Root canal therapy</option>
+                <option>Emergency / tooth pain</option>
+                <option>Pediatric dentistry</option>
+                <option>Not sure — need advice</option>
+              </select>
+              <span class="err-msg">Please select a treatment.</span>
+            </div>
+            <div class="field" data-field="doctor">
+              <label for="doctor">Preferred doctor <span class="opt">(optional)</span></label>
+              <select id="doctor" name="doctor">
+                <option value="" selected>No preference</option>
+                <option>Dr. Naina Arora — Cosmetic &amp; Implants</option>
+                <option>Dr. Rohan Mehta — Orthodontist</option>
+                <option>Dr. Simran Kapoor — Pediatric Dentist</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field" data-field="date">
+              <label for="date">Preferred date</label>
+              <input type="date" id="date" name="date" required>
+              <span class="err-msg">Please choose a preferred date.</span>
+            </div>
+            <div class="field" data-field="time">
+              <label for="time">Preferred time</label>
+              <select id="time" name="time" required>
+                <option value="" disabled selected>Select a time slot</option>
+                <option>9:00 AM – 11:00 AM</option>
+                <option>11:00 AM – 1:00 PM</option>
+                <option>1:00 PM – 3:00 PM</option>
+                <option>3:00 PM – 5:00 PM</option>
+                <option>5:00 PM – 8:00 PM</option>
+              </select>
+              <span class="err-msg">Please choose a preferred time.</span>
+            </div>
+          </div>
+
+          <div class="field" data-field="message">
+            <label for="message">Anything we should know? <span class="opt">(optional)</span></label>
+            <textarea id="message" name="message" placeholder="e.g. Sensitive teeth, dental anxiety, insurance provider name, previous treatment history..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn">Request Appointment</button>
+          <p class="form-note">This sends a request — we'll confirm your exact slot by phone or email. This form is not yet connected to a live inbox.</p>
+        </form>
+
+        <div class="form-card success-box" id="successBox">
+          <div class="success-check">&#10003;</div>
+          <h2>Request received</h2>
+          <p>Thanks — we'll call or email you within one business day to confirm your slot. If it's urgent, just call us directly at +91 98765 43210.</p>
+          <div class="success-summary" id="successSummary"></div>
+          <div style="margin-top:24px;">
+            <a href="index.html" class="btn btn-outline" style="border-color:#123B36;color:#123B36;">Back to Home</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="side-card">
+          <h3>Clinic hours &amp; contact</h3>
+          <div class="info-row"><span class="ic">&#128205;</span><div><strong>21 Civil Lines Road</strong>Kota, Rajasthan 324001</div></div>
+          <div class="info-row"><span class="ic">&#128222;</span><div><strong>+91 98765 43210</strong>Call for same-day emergencies</div></div>
+          <div class="info-row"><span class="ic">&#9993;</span><div><strong>hello@sterlingsmile.example</strong>We reply within a day</div></div>
+          <div class="info-row"><span class="ic">&#128337;</span><div><strong>Mon – Sat</strong>9:00 AM – 8:00 PM</div></div>
+        </div>
+
+        <div class="side-card">
+          <h3>What happens next</h3>
+          <ul class="steps">
+            <li><span class="num">1</span><span>You submit this form with your details &amp; preferred slot.</span></li>
+            <li><span class="num">2</span><span>Our front desk confirms availability and calls or emails you.</span></li>
+            <li><span class="num">3</span><span>You get a confirmation with the doctor, date and time.</span></li>
+            <li><span class="num">4</span><span>Arrive 10 minutes early for a quick check-in.</span></li>
+          </ul>
+        </div>
+
+        <div class="side-card side-cta">
+          <h3>Prefer to talk it through?</h3>
+          <p>Skip the form and call our front desk directly.</p>
+          <a href="tel:+919876543210">&#128222; Call +91 98765 43210</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><span class="mark" style="background:rgba(255,255,255,.12)">SS</span>Sterling Smile</div>
+        <p style="color:rgba(255,255,255,.6);font-size:.88rem;max-width:280px;">Modern, gentle dental care in the heart of Kota — general, cosmetic and pediatric dentistry under one roof.</p>
+        <div class="social" style="margin-top:16px;">
+          <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">ig</a><a href="#" aria-label="WhatsApp">wa</a>
+        </div>
+      </div>
+      <div><h4>Explore</h4><ul>
+        <li><a href="doctors.html">Our Doctors</a></li>
+        <li><a href="gallery.html">Before &amp; After</a></li>
+        <li><a href="reviews.html">Patient Reviews</a></li>
+        <li><a href="contact.html">Contact &amp; Booking</a></li>
+      </ul></div>
+      <div><h4>Treatments</h4><ul>
+        <li><a href="index.html#">Cosmetic Dentistry</a></li>
+        <li><a href="index.html#">Implants &amp; Crowns</a></li>
+        <li><a href="index.html#">Braces &amp; Aligners</a></li>
+        <li><a href="index.html#">Emergency Care</a></li>
+      </ul></div>
+      <div><h4>Visit Us</h4><ul>
+        <li>21 Civil Lines Road, Kota, Rajasthan 324001</li>
+        <li>+91 98765 43210</li>
+        <li>hello@sterlingsmile.example</li>
+        <li>Mon–Sat · 9:00 AM – 8:00 PM</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Sterling Smile Dental Care. All rights reserved.</span>
+      <span>Template by Claude — replace photos &amp; copy with your clinic's own before publishing.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // ---------- Booking form (front-end only demo) ----------
+  // NOTE: No backend is wired up yet. When ready, set the form's
+  // "action" attribute above to your Formspree endpoint
+  // (https://formspree.io/f/xxxxxxx) and this script will let the
+  // native POST happen instead of intercepting it — see bottom of file.
+
+  (function () {
+    var form = document.getElementById('bookingForm');
+    var successBox = document.getElementById('successBox');
+    var successSummary = document.getElementById('successSummary');
+    var submitBtn = document.getElementById('submitBtn');
+
+    // Prevent picking a date in the past
+    var dateInput = document.getElementById('date');
+    if (dateInput) {
+      var today = new Date().toISOString().split('T')[0];
+      dateInput.setAttribute('min', today);
+    }
+
+    function setError(fieldEl, hasError) {
+      if (hasError) {
+        fieldEl.classList.add('error');
+      } else {
+        fieldEl.classList.remove('error');
+      }
+    }
+
+    function validatePhone(value) {
+      var digits = value.replace(/\D/g, '');
+      return digits.length >= 10;
+    }
+
+    function validateEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function validateForm() {
+      var valid = true;
+
+      var required = [
+        { id: 'fullName', check: function (v) { return v.trim().length > 1; } },
+        { id: 'phone', check: validatePhone },
+        { id: 'email', check: validateEmail },
+        { id: 'service', check: function (v) { return v !== ''; } },
+        { id: 'date', check: function (v) { return v !== ''; } },
+        { id: 'time', check: function (v) { return v !== ''; } }
+      ];
+
+      required.forEach(function (item) {
+        var input = document.getElementById(item.id);
+        var fieldEl = input.closest('.field');
+        var isValid = item.check(input.value);
+        setError(fieldEl, !isValid);
+        if (!isValid) valid = false;
+      });
+
+      return valid;
+    }
+
+    ['fullName', 'phone', 'email', 'service', 'date', 'time'].forEach(function (id) {
+      var input = document.getElementById(id);
+      input.addEventListener('input', function () {
+        setError(input.closest('.field'), false);
+      });
+      input.addEventListener('change', function () {
+        setError(input.closest('.field'), false);
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      // Demo mode: no backend connected yet, so we simulate success.
+      // Once a real Formspree endpoint is set in the form's "action"
+      // attribute, remove the next line (e.preventDefault()) so the
+      // browser performs the real POST submit instead of this demo.
+      e.preventDefault();
+
+      if (!validateForm()) {
+        var firstError = form.querySelector('.field.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending request…';
+
+      // Simulate a short network delay so it feels real
+      setTimeout(function () {
+        var data = new FormData(form);
+        var summaryRows = [
+          ['Name', data.get('fullName')],
+          ['Treatment', data.get('service')],
+          ['Doctor', data.get('doctor') || 'No preference'],
+          ['Date', data.get('date')],
+          ['Time', data.get('time')],
+          ['Phone', data.get('phone')]
+        ];
+
+        successSummary.innerHTML = summaryRows.map(function (row) {
+          return '<div><span class="k">' + row[0] + '</span><span class="v">' + row[1] + '</span></div>';
+        }).join('');
+
+        form.classList.add('hidden-form');
+        successBox.classList.add('show');
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request Appointment';
+      }, 700);
+    });
+  })();
+</script>
+</body>
+</html>

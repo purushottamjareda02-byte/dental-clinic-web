@@ -1,0 +1,371 @@
+/* =========================================================
+   Sterling Smile Dental Care — Design Tokens
+   Color:  --teal #0F3D3E (deep, trustworthy)
+           --mint #E9F4EF (clean, clinical calm)
+           --coral #FF6B52 (warm accent / CTA)
+           --gold  #C9A24B (premium hairline accent)
+           --cream #FAF8F4 (page background)
+           --ink   #1C2522 (text)
+   Type:   Display — "Fraunces" (warm, human serif — softens a clinical subject)
+           Body    — "Inter" (clean, legible utility face)
+   Signature: the "smile-arc" divider — a thin arcing rule that recurs between
+   sections, echoing the curve of a smile rather than a straight hairline.
+   ========================================================= */
+
+:root{
+  --teal:#0F3D3E;
+  --teal-dark:#082625;
+  --mint:#E9F4EF;
+  --coral:#FF6B52;
+  --coral-dark:#E8553C;
+  --gold:#C9A24B;
+  --cream:#FAF8F4;
+  --ink:#1C2522;
+  --ink-soft:#52635E;
+  --white:#FFFFFF;
+  --radius:18px;
+  --radius-sm:10px;
+  --shadow:0 18px 40px -18px rgba(15,61,62,.28);
+  --shadow-sm:0 8px 20px -10px rgba(15,61,62,.22);
+  --max:1180px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{
+  font-family:'Fraunces',serif;
+  margin:0 0 .4em;
+  line-height:1.08;
+  font-weight:600;
+  letter-spacing:-.01em;
+}
+p{margin:0 0 1em;color:var(--ink-soft);}
+ul{margin:0;padding:0;}
+.container{max-width:var(--max);margin:0 auto;padding:0 28px;}
+.eyebrow{
+  font-family:'Inter',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.72rem;
+  font-weight:700;
+  color:var(--coral-dark);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:"";
+  width:18px;height:2px;background:var(--coral);
+  display:inline-block;border-radius:2px;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 28px;border-radius:999px;font-weight:600;font-size:.95rem;
+  cursor:pointer;border:none;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  font-family:'Inter',sans-serif;
+}
+.btn-primary{background:var(--coral);color:var(--white);box-shadow:var(--shadow-sm);}
+.btn-primary:hover{background:var(--coral-dark);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--teal);border:1.5px solid var(--teal);}
+.btn-outline:hover{background:var(--teal);color:var(--white);transform:translateY(-2px);}
+.btn-light{background:var(--white);color:var(--teal);}
+.btn-light:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.btn-block{width:100%;}
+
+/* ---------- Smile-arc signature divider ---------- */
+.smile-arc{
+  width:100%;
+  height:46px;
+  display:block;
+  margin:0 auto;
+}
+.smile-arc path{ stroke:var(--gold); stroke-width:2; fill:none; stroke-linecap:round; }
+.smile-arc.flip{ transform:rotate(180deg); }
+
+/* ---------- Header / Nav ---------- */
+header.site{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,248,244,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(15,61,62,.08);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 28px;max-width:var(--max);margin:0 auto;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;color:var(--teal);
+}
+.logo .mark{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--teal);color:var(--mint);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;
+}
+.nav-links{display:flex;gap:32px;align-items:center;font-weight:600;font-size:.94rem;color:var(--ink);}
+.nav-links a{position:relative;padding:6px 0;}
+.nav-links a.active, .nav-links a:hover{color:var(--coral-dark);}
+.nav-cta{display:flex;align-items:center;gap:18px;}
+.nav-phone{font-weight:700;color:var(--teal);font-size:.92rem;}
+.nav-toggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--teal);cursor:pointer;}
+
+@media (max-width:880px){
+  .nav-links{
+    position:absolute;top:100%;left:0;right:0;background:var(--cream);
+    flex-direction:column;align-items:flex-start;padding:18px 28px;gap:14px;
+    box-shadow:var(--shadow-sm);display:none;
+  }
+  .nav-links.open{display:flex;}
+  .nav-toggle{display:block;}
+  .nav-phone{display:none;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,var(--teal) 0%, var(--teal-dark) 100%);
+  color:var(--white);
+  padding:90px 0 0;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+  max-width:var(--max);margin:0 auto;padding:0 28px 70px;
+}
+.hero h1{font-size:clamp(2.4rem,4.2vw,3.6rem);color:var(--white);}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero p.lead{color:rgba(255,255,255,.82);font-size:1.08rem;max-width:480px;}
+.hero-actions{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:34px;margin-top:46px;flex-wrap:wrap;}
+.hero-stats div{min-width:90px;}
+.hero-stats strong{font-family:'Fraunces',serif;font-size:1.9rem;display:block;color:var(--gold);}
+.hero-stats span{font-size:.82rem;color:rgba(255,255,255,.72);}
+.hero-art{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.45);
+  aspect-ratio:4/5;
+}
+.hero-art img{width:100%;height:100%;object-fit:cover;}
+.hero-badge{
+  position:absolute;bottom:18px;left:18px;right:18px;
+  background:rgba(255,255,255,.94);border-radius:14px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm);
+}
+.hero-badge .stars{color:var(--gold);font-size:1rem;letter-spacing:1px;}
+.hero-badge small{color:var(--ink-soft);display:block;font-size:.78rem;}
+.hero-wave{display:block;width:100%;}
+
+/* ---------- Sections ---------- */
+section{padding:84px 0;}
+.section-head{max-width:640px;margin:0 auto 50px;text-align:center;}
+.section-head.left{margin:0 0 50px;text-align:left;}
+.bg-mint{background:var(--mint);}
+.bg-teal{background:var(--teal);color:var(--white);}
+.bg-teal h2, .bg-teal h3{color:var(--white);}
+.bg-teal p{color:rgba(255,255,255,.78);}
+
+/* ---------- Services / cards ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+
+.card{
+  background:var(--white);border-radius:var(--radius);padding:30px 26px;
+  box-shadow:var(--shadow-sm);transition:transform .3s ease, box-shadow .3s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.card .ic{
+  width:48px;height:48px;border-radius:12px;background:var(--mint);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px;
+}
+.card h3{font-size:1.15rem;margin-bottom:8px;}
+.card p{margin-bottom:0;font-size:.94rem;}
+
+/* ---------- Why us strip ---------- */
+.strip{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.strip .item{flex:1;min-width:200px;display:flex;gap:14px;align-items:flex-start;}
+.strip .item .ic{font-size:1.5rem;background:rgba(255,255,255,.12);width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* ---------- Before / After ---------- */
+.ba-card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.ba-images{
+  position:relative;aspect-ratio:4/3;overflow:hidden;
+  /* Stops the "select everything blue" effect while dragging the divider */
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  user-select:none;
+  touch-action:none; /* also stops the page from scrolling while dragging on touch */
+}
+.ba-images img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  -webkit-user-drag:none;
+  user-drag:none;
+  pointer-events:none; /* clicks/drags pass through to .ba-images / the divider */
+}
+.ba-images img.after{clip-path:inset(0 0 0 50%); z-index:1;}
+.ba-images img.before{z-index:0;}
+.ba-divider{
+  position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--white);
+  cursor:ew-resize;transform:translateX(-50%);
+  z-index:2;
+  touch-action:none;
+}
+.ba-divider::after{
+  content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:36px;height:36px;background:var(--white);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--teal);font-weight:700;
+  box-shadow:var(--shadow-sm);
+}
+.ba-images.dragging{cursor:ew-resize;}
+.ba-tag{
+  position:absolute;top:12px;font-size:.7rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:5px 10px;border-radius:6px;background:rgba(28,37,34,.85);color:#fff;
+  z-index:10; /* always stays above the divider handle, no matter where it sits */
+  white-space:nowrap;
+  pointer-events:none;
+  min-width:52px;
+  text-align:center;
+}
+.ba-tag.before{left:12px;}
+.ba-tag.after{right:12px;}
+.ba-info{padding:18px 20px;}
+.ba-info h4{margin-bottom:4px;font-size:1.02rem;}
+.ba-info p{margin:0;font-size:.86rem;}
+
+/* While a slider is actively being dragged, disable text selection across
+   the whole page — this is what removes the distracting blue selection
+   highlight/line that used to appear when moving the mouse quickly. */
+body.ba-no-select{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  user-select:none;
+}
+
+/* ---------- Doctors ---------- */
+.doc-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .3s ease;}
+.doc-card:hover{transform:translateY(-6px);}
+.doc-photo{aspect-ratio:3/4;overflow:hidden;}
+.doc-photo img{width:100%;height:100%;object-fit:cover;}
+.doc-body{padding:22px 22px 26px;}
+.doc-body h3{margin-bottom:2px;font-size:1.2rem;}
+.doc-role{color:var(--coral-dark);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:block;}
+.doc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.doc-tags span{background:var(--mint);color:var(--teal);font-size:.74rem;font-weight:600;padding:5px 10px;border-radius:999px;}
+
+/* ---------- Reviews ---------- */
+.review-card{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);height:100%;}
+.review-stars{color:var(--gold);letter-spacing:2px;margin-bottom:12px;font-size:1rem;}
+.review-quote{font-style:normal;color:var(--ink);font-size:1rem;}
+.review-person{display:flex;align-items:center;gap:12px;margin-top:18px;}
+.review-avatar{
+  width:42px;height:42px;border-radius:50%;background:var(--teal);color:var(--mint);
+  display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;
+}
+.review-person strong{display:block;font-size:.92rem;}
+.review-person span{font-size:.78rem;color:var(--ink-soft);}
+.review-summary{display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:center;margin-bottom:50px;}
+.review-summary .score{text-align:center;}
+.review-summary .score strong{font-family:'Fraunces',serif;font-size:3rem;color:var(--teal);display:block;}
+.review-summary .score .stars{color:var(--gold);font-size:1.1rem;}
+
+/* ---------- CTA banner ---------- */
+.cta-banner{
+  background:linear-gradient(120deg,var(--coral),var(--coral-dark));
+  border-radius:24px;color:var(--white);padding:54px 50px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+}
+.cta-banner h2{color:var(--white);margin-bottom:6px;}
+.cta-banner p{color:rgba(255,255,255,.85);margin-bottom:0;}
+
+/* ---------- Appointment form ---------- */
+.appt-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.appt-info{background:var(--teal);color:var(--white);padding:46px 40px;}
+.appt-info h3{color:var(--white);}
+.appt-info ul{margin-top:22px;display:flex;flex-direction:column;gap:16px;}
+.appt-info li{display:flex;gap:12px;font-size:.94rem;color:rgba(255,255,255,.88);}
+.appt-form{background:var(--white);padding:46px 40px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.field input, .field select, .field textarea{
+  width:100%;padding:13px 14px;border-radius:var(--radius-sm);border:1.5px solid #DDE5E1;
+  font-family:'Inter',sans-serif;font-size:.94rem;background:var(--cream);color:var(--ink);
+  transition:border-color .2s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--coral);}
+.field textarea{resize:vertical;min-height:90px;}
+.form-msg{margin-top:14px;font-size:.88rem;font-weight:600;}
+.form-msg.ok{color:#1F7A4D;}
+.form-msg.err{color:#C23A2C;}
+
+/* ---------- Map / location ---------- */
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:stretch;}
+#map{width:100%;height:100%;min-height:380px;border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+.loc-card{background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:center;}
+.loc-row{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.loc-row .ic{width:40px;height:40px;border-radius:10px;background:var(--mint);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.loc-row h4{margin:0 0 4px;font-size:.98rem;}
+.loc-row p{margin:0;font-size:.9rem;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--teal-dark);color:rgba(255,255,255,.75);padding:60px 0 26px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px;margin-bottom:40px;}
+.footer-grid h4{color:var(--white);font-size:.95rem;margin-bottom:16px;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.07em;}
+.footer-grid ul{display:flex;flex-direction:column;gap:10px;font-size:.9rem;}
+.footer-grid ul a:hover{color:var(--gold);}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--white);font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:14px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;}
+.social{display:flex;gap:10px;}
+.social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
+.social a:hover{background:var(--coral);}
+
+/* ---------- Page hero (sub pages) ---------- */
+.page-hero{
+  background:linear-gradient(160deg,var(--teal),var(--teal-dark));
+  color:var(--white);padding:120px 0 60px;text-align:center;
+}
+.page-hero h1{color:var(--white);}
+.breadcrumb{font-size:.85rem;color:rgba(255,255,255,.65);}
+.breadcrumb a{color:var(--gold);}
+
+/* ---------- Filter chips (gallery/reviews) ---------- */
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.chip{
+  padding:9px 18px;border-radius:999px;border:1.5px solid #DDE5E1;background:var(--white);
+  font-size:.86rem;font-weight:600;cursor:pointer;transition:all .2s ease;color:var(--ink-soft);
+}
+.chip.active{background:var(--teal);border-color:var(--teal);color:var(--white);}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-art{max-width:420px;margin:0 auto;}
+  .grid-3, .grid-4{grid-template-columns:repeat(2,1fr);}
+  .grid-2{grid-template-columns:1fr;}
+  .appt-wrap{grid-template-columns:1fr;}
+  .location-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:600px){
+  .grid-3, .grid-4{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .cta-banner{padding:38px 26px;text-align:center;justify-content:center;}
+  .footer-grid{grid-template-columns:1fr;}
+  section{padding:60px 0;}
+}
